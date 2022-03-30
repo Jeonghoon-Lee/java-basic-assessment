@@ -36,73 +36,78 @@ public class RockPaperScissors {
             // Maximum number of rounds is 10, minimum number of rounds is 1.
             // If the user asks for something outside this range,
             // the program prints an error message and quits
-            System.out.print("How many time you want to play(1 - 10)? ");
-            int numberOfrounds = Integer.parseInt(sc.nextLine());
+            System.out.print("\nHow many time you want to play(1 - 10)? ");
+            int numberOfroundsToPlay = sc.nextInt();
 
-            if (numberOfrounds < 0 || numberOfrounds > 10) {
+            if (numberOfroundsToPlay < 0 || numberOfroundsToPlay > 10) {
                 System.out.println("Sorry! you must choose between 1 to 10.");
                 break;
             }
 
-            for (int i = 1; i <= numberOfrounds; i++) {
-                System.out.format("\nRound %d:\n", i);
+            int currentRound = 1;
+            while (currentRound <= numberOfroundsToPlay) {
+                System.out.format("\nRound %d:\n", currentRound);
                 System.out.format("What is your choice (1:Rock, 2:Paper, 3:Scissors)? ");
 
-                userChoice = Integer.parseInt(sc.nextLine());
-
+                userChoice = sc.nextInt();
                 // Generate computer's choice randomly.
                 computerChoice = rand.nextInt(3) + 1;
 
                 // Chech who wins a game.
                 if (userChoice != computerChoice) {
-                    switch (userChoice) {
-                        case ROCK:
-                            if (computerChoice == SCISSORS) {
-                                countOfUserWin++;
-                            } else {    // computer's choice is PAPER.
-                                countOfComputerWin++;
-                            }
-                            break;
-                        case PAPER:
-                            if (computerChoice == ROCK) {
-                                countOfUserWin++;
-                            } else {    // computer's choice is SCISSORS.
-                                countOfComputerWin++;
-                            }
-                        case SCISSORS:
-                            if (computerChoice == PAPER) {
-                                countOfUserWin++;
-                            } else {    // computer's choice is ROCK.
-                                countOfComputerWin++;
-                            }
-                        default:
-                            System.out.println("Out of range: choice was wrong!");
+                    if ((userChoice == ROCK && computerChoice == SCISSORS)
+                            || (userChoice == PAPER && computerChoice == ROCK)
+                            || (userChoice == SCISSORS && computerChoice == PAPER)) {
+                        countOfUserWin++;
+                        System.out.println("User wins");
+                    } else if ((computerChoice == ROCK && userChoice == SCISSORS)
+                            || (computerChoice == PAPER && userChoice == ROCK)
+                            || (computerChoice == SCISSORS && userChoice == PAPER)) {
+                        countOfComputerWin++;
+                        System.out.println("Computer wins");
+                    } else {
+                        // in case of input error
+                        System.err.println("Out of range: Please try again.");
+                        currentRound--;
                     }
                 } else {
+                    System.out.println("It's tie.");
                     countOfTies++;
                 }
+                currentRound++;
             }
+            // clear for last enter key.
+            // Random.nextInt() doesn't clear last enter key.
+            sc.nextLine();
 
             // Print the result
-            System.out.format("\nThe numbers of ties are %d.\n", countOfTies);
-            System.out.format("User wins %d times.\n", countOfUserWin);
-            System.out.format("Computer wins %d.\n\n", countOfComputerWin);
+            System.out.println("\n--------------------------");
+            System.out.format("The number of ties are %d games.\n", countOfTies);
+            System.out.format("User wins %d game(s).\n", countOfUserWin);
+            System.out.format("Computer wins %d game(s).\n\n", countOfComputerWin);
 
             if (countOfUserWin > countOfComputerWin) {
-                System.out.println("User wins game.");
+                System.out.println("* USER wins game. *");
             } else if (countOfUserWin < countOfComputerWin) {
-                System.out.println("Computer wins game.");
+                System.out.println("* COMPUTER wins game. *");
             } else {
-                System.out.println("No one wins game. The game was drawn.");
+                System.out.println("* NO ONE wins game. The game was drawn. *");
             }
+            System.out.println("--------------------------");
 
-            System.out.print("Do you want to play again(Yes/No)? ");
+            System.out.print("\nDo you want to play again(Yes/No)? ");
             String userInput = sc.nextLine();
 
-            if (userInput.equals("Yes")) {
+            if (userInput.toUpperCase().equals("NO") || userInput.toUpperCase().equals("N")) {
                 System.out.println("Thanks for playing!");
                 break;
             }
+
+            // if user enter other characters than No or N
+            // reset all the variable for playing again
+            countOfUserWin = 0;
+            countOfComputerWin = 0;
+            countOfTies = 0;
         }
     }
 }
