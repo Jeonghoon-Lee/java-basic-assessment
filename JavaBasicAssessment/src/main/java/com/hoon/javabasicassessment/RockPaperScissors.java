@@ -98,7 +98,6 @@ public class RockPaperScissors {
             String userInput = sc.nextLine();
 
             if (userInput.toUpperCase().equals("NO") || userInput.toUpperCase().equals("N")) {
-                System.out.println("Thanks for playing!");
                 break;
             }
 
@@ -108,5 +107,6 @@ public class RockPaperScissors {
             countOfComputerWin = 0;
             countOfTies = 0;
         }
+        System.out.println("Thanks for playing!");
     }
 }

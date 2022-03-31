@@ -48,7 +48,6 @@ public class DogGenetics {
         // Percentage of 5 dog breeds that should add up to 100%
         System.out.println(maxPercentOfBreed + "% " + DOG_BREEDS[DOG_BREEDS.length - 1]);
 
-
         System.out.println("\nWow, that's QUITE the dog!");
     }
 }
