@@ -16,6 +16,9 @@ public class RockPaperScissors {
 
     public static void main(String[] args) {
 
+        final int MINIMUN_ROUND = 1;
+        final int MAXIMUM_ROUND = 10;
+
         final int ROCK = 1;
         final int PAPER = 2;
         final int SCISSORS = 3;
@@ -38,7 +41,7 @@ public class RockPaperScissors {
             System.out.print("\nHow many time you want to play(1 - 10)? ");
             int numberOfroundsToPlay = sc.nextInt();
 
-            if (numberOfroundsToPlay < 0 || numberOfroundsToPlay > 10) {
+            if (numberOfroundsToPlay < MINIMUN_ROUND || numberOfroundsToPlay > MAXIMUM_ROUND) {
                 System.out.println("Sorry! you must choose between 1 to 10.");
                 break;
             }
@@ -98,6 +101,7 @@ public class RockPaperScissors {
             String userInput = sc.nextLine();
 
             if (userInput.toUpperCase().equals("NO") || userInput.toUpperCase().equals("N")) {
+                System.out.println("Thanks for playing!");
                 break;
             }
 
@@ -107,6 +111,5 @@ public class RockPaperScissors {
             countOfComputerWin = 0;
             countOfTies = 0;
         }
-        System.out.println("Thanks for playing!");
     }
 }
